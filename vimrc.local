@@ -1,0 +1,84 @@
+let mapleader=","
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'Shougo/vimproc', {'build': {'unix': 'make -f make_unix.mak'}}
+Plug 'kien/ctrlp.vim'
+Plug 'fatih/vim-go'
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'altercation/vim-colors-solarized'
+Plug 'Valloric/YouCompleteMe'
+Plug 'majutsushi/tagbar'
+Plug 'fatih/molokai'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'jmcantrell/vim-virtualenv'
+
+call plug#end()
+
+let g:ycm_min_num_of_chars_for_completion = 5
+
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+
+nmap <F8> :TagbarToggle<CR>
+
+set incsearch hlsearch smartcase
+set encoding=utf8
+set termencoding=utf8
+set number
+set cursorline
+nmap <leader>l :set list! relativenumber!<CR>
+nmap <leader>p :set list! number!<CR>
+set laststatus=2
+
+"disable arrows
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+
+set pastetoggle=<F2>
+" Map toggling paste mode
+" nnoremap <F2> :set invpaste paste?<CR>
+" set pastetoggle=<F2>
+" set invpaste
+" set mouse=a
+
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_theme = 'term'
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '␤ '
+let g:airline_symbols.paste = 'ρ'
+let g:airline#extensions#syntastic#enabled = 0
+
+colorscheme molokai
+
+" Highlight
+let g:go_highlight_functions = 1  
+let g:go_highlight_methods = 1  
+let g:go_highlight_structs = 1  
+let g:go_highlight_operators = 1  
+let g:go_highlight_build_constraints = 1 
+
+set timeoutlen=1000 ttimeoutlen=0
