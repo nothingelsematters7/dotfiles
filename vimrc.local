@@ -31,7 +31,11 @@ syntax enable
 set t_Co=256
 set background=dark
 colorscheme gruvbox
-" let g:gruvbox_contrast_dark = "soft"
+set encoding=utf-8
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
+
 
 set modelines=3
 set number
@@ -86,7 +90,6 @@ hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 let g:go_highlight_functions = 0
 let g:go_highlight_methods = 0
 let g:go_highlight_structs = 0
-" let g:go_bin_path = "/Users/dev_il/Project/Mine/gowork/bin/"
 
 let g:tagbar_type_go = {  
     \ 'ctagstype' : 'go',
@@ -119,15 +122,6 @@ let g:tagbar_type_go = {
 nmap <F8> :TagbarToggle<CR>
 
 set laststatus=2
-
-" set rtp+=/Users/divan/Library//Python/2.7/lib/python/site-packages/powerline/bindings/vim/
-set guifont=Inconsolata\ for\ Powerline:h15
-let g:Powerline_symbols = 'fancy'
-set encoding=utf-8
-set t_Co=256
-set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
-set termencoding=utf-8
 
 nmap <Leader>t :NERDTree<CR>
 nmap <Leader>c :close<CR>
