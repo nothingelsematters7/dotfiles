@@ -2,18 +2,18 @@ let mapleader=","
 
 call plug#begin('~/.vim/plugged')
 Plug 'kien/ctrlp.vim'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic'
 Plug 'altercation/vim-colors-solarized'
-Plug 'klen/python-mode'
+Plug 'klen/python-mode', {'for': 'python'}
 Plug 'majutsushi/tagbar'
 Plug 'fatih/molokai'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'jmcantrell/vim-virtualenv'
+Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplete.vim'
 Plug 'godlygeek/tabular'
@@ -23,6 +23,7 @@ Plug 'cespare/vim-toml', {'for' : 'toml'}
 Plug 'elzr/vim-json', {'for' : 'json'}
 Plug 'rking/ag.vim'
 Plug 'morhetz/gruvbox'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -54,6 +55,7 @@ set wildmenu
 set wildmode=longest,list,full
 set undofile
 set undodir=/tmp
+set directory=/tmp
 
 let g:go_fmt_autosave = 1
 let g:go_disable_autoinstall = 1
@@ -142,3 +144,9 @@ noremap <Right> <NOP>
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" Pymode settings
+let g:pymode_folding = 0
+let g:pymode_rope_autoimport_import_after_complete = 1
+let g:pymode_syntax_all = 1
+
