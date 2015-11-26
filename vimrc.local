@@ -150,3 +150,6 @@ let g:pymode_folding = 0
 let g:pymode_rope_autoimport_import_after_complete = 1
 let g:pymode_syntax_all = 1
 
+" Tagbar settings
+autocmd FileType python,go nested :TagbarOpen
+let g:tagbar_compact = 1
