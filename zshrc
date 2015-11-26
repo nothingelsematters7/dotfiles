@@ -1,4 +1,5 @@
-source /usr/local/bin/virtualenvwrapper.sh
+export PATH=$PATH:~/Library/Python/2.7/bin/
+source ~/Library/Python/2.7/bin/virtualenvwrapper.sh
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
