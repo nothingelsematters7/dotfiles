@@ -1,7 +1,7 @@
 let mapleader=","
 
 call plug#begin('~/.vim/plugged')
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
