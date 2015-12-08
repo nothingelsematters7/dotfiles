@@ -41,6 +41,7 @@ set termencoding=utf-8
 
 set modelines=3
 set number
+set relativenumber
 set ts=4
 set sw=4
 
