@@ -1,29 +1,30 @@
 let mapleader=","
 
 call plug#begin('~/.vim/plugged')
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'fatih/vim-go', {'for': 'go'}
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'fatih/molokai'
+Plug 'Shougo/neocomplete.vim'
+Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
-Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-bufferline'
+Plug 'cespare/vim-toml', {'for' : 'toml'}
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'elzr/vim-json', {'for' : 'json'}
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'godlygeek/tabular'
+Plug 'honza/vim-snippets'
+Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
 Plug 'klen/python-mode', {'for': 'python'}
 Plug 'majutsushi/tagbar'
-Plug 'fatih/molokai'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
-Plug 'scrooloose/nerdtree'
-Plug 'Shougo/neocomplete.vim'
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'SirVer/ultisnips'
-Plug 'cespare/vim-toml', {'for' : 'toml'}
-Plug 'elzr/vim-json', {'for' : 'json'}
-Plug 'rking/ag.vim'
 Plug 'morhetz/gruvbox'
-Plug 'honza/vim-snippets'
+Plug 'plasticboy/vim-markdown'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 
 call plug#end()
 
@@ -31,21 +32,20 @@ filetype plugin indent on
 syntax enable
 set t_Co=256
 set background=dark
+" let g:solarized_termcolors=256
 colorscheme gruvbox
 set encoding=utf-8
 set fillchars+=stl:\ ,stlnc:\
 set term=xterm-256color
 set termencoding=utf-8
 
-
 set modelines=3
 set number
 set ts=4
 set sw=4
 
-set background=dark
 set nobackup
-" set listchars=tab:>-,trail:·,nbsp:%
+set listchars=tab:>-,trail:·,nbsp:%
 set showbreak=>
 set history=50
 set ruler
@@ -56,6 +56,7 @@ set wildmode=longest,list,full
 set undofile
 set undodir=/tmp
 set directory=/tmp
+set hidden
 
 let g:go_fmt_autosave = 1
 let g:go_disable_autoinstall = 1
@@ -80,7 +81,7 @@ au FileType go nmap gds <Plug>(go-def-split)
 set completeopt-=preview
 
 " NeoComplete options
-let g:neocomplete#enable_at_startup = 0
+let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#manual_completion_start_length = 3
 let g:neocomplete#auto_completion_start_length = 3
@@ -93,7 +94,7 @@ let g:go_highlight_functions = 0
 let g:go_highlight_methods = 0
 let g:go_highlight_structs = 0
 
-let g:tagbar_type_go = {  
+let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
         \ 'p:package',
@@ -147,9 +148,28 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Pymode settings
 let g:pymode_folding = 0
-let g:pymode_rope_autoimport_import_after_complete = 1
 let g:pymode_syntax_all = 1
 
 " Tagbar settings
-autocmd FileType python,go nested :TagbarOpen
+" autocmd FileType python,go nested :TagbarOpen
 let g:tagbar_compact = 1
+
+let g:airline_theme="dark"
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+let g:airline_symbols.linenr = '␤ '
+let g:airline_symbols.paste = 'ρ'
+let g:airline_left_sep = '»'
+let g:airline_right_sep = '«'
+let g:airline#extensions#syntastic#enabled = 0
+let g:bufferline_echo = 0
+autocmd VimEnter *
+	\ let &statusline='%{bufferline#refresh_status()}'
+	\ .bufferline#get_status_string()
+
+set mouse=a
+
+" Press space to clear search highlighting
+nnoremap <silent> <Space> :noh<CR>
+nnoremap <NL> i<CR><ESC>
