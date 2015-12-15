@@ -29,9 +29,9 @@ Plug 'tpope/vim-surround'
 call plug#end()
 
 filetype plugin indent on
+set background=dark
 syntax enable
 set t_Co=256
-set background=dark
 " let g:solarized_termcolors=256
 colorscheme gruvbox
 set encoding=utf-8
@@ -42,8 +42,10 @@ set termencoding=utf-8
 set modelines=3
 set number
 set relativenumber
+set cursorline
 set ts=4
 set sw=4
+set ignorecase smartcase
 
 set nobackup
 set listchars=tab:>-,trail:·,nbsp:%
@@ -70,7 +72,7 @@ au BufNewFile,BufRead *.conf setf toml
 
 au FileType go nmap gr <Plug>(go-run)
 au FileType go nmap gb <Plug>(go-build)
-au FileType go nmap gt <Plug>(go-test)
+"au FileType go nmap gt <Plug>(go-test)
 au FileType go nmap gi <Plug>(go-info)
 au FileType go nmap gn <Plug>(go-doc-browser)
 au FileType go nmap gh <Plug>(go-doc)
@@ -144,8 +146,10 @@ noremap <Right> <NOP>
 
 " UltiSnips settings
 let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
 
 " Pymode settings
 let g:pymode_folding = 0
@@ -168,8 +172,6 @@ let g:bufferline_echo = 0
 autocmd VimEnter *
 	\ let &statusline='%{bufferline#refresh_status()}'
 	\ .bufferline#get_status_string()
-
-set mouse=a
 
 " Press space to clear search highlighting
 nnoremap <silent> <Space> :noh<CR>
