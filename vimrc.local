@@ -38,6 +38,8 @@ set encoding=utf-8
 set fillchars+=stl:\ ,stlnc:\
 set term=xterm-256color
 set termencoding=utf-8
+set foldmethod=syntax
+set foldlevelstart=99
 
 set modelines=3
 set number
