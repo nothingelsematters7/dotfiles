@@ -1,9 +1,20 @@
-let mapleader=","
+if &compatible
+  set nocompatible
+end
 
-call plug#begin('~/.vim/plugged')
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &&
+		\ mkdir -p ~/.config && ln -s ~/.vim ~/.config/nvim && ln -s ~/.vimrc ~/.config/nvim/init.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+call g:plug#begin('~/.vim/plugged')
+
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'fatih/molokai'
-Plug 'Shougo/neocomplete.vim'
+" Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/deoplete.nvim'
 Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'cespare/vim-toml', {'for' : 'toml'}
@@ -25,17 +36,15 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 
-call plug#end()
+call g:plug#end()
 
 filetype plugin indent on
 set background=dark
 syntax enable
-set t_Co=256
 " let g:solarized_termcolors=256
 colorscheme gruvbox
 set encoding=utf-8
 set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
 set termencoding=utf-8
 set foldmethod=syntax
 set foldlevelstart=99
@@ -85,11 +94,14 @@ au FileType go nmap gds <Plug>(go-def-split)
 set completeopt-=preview
 
 " NeoComplete options
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#manual_completion_start_length = 3
-let g:neocomplete#auto_completion_start_length = 3
-call neocomplete#custom#source('ultisnips', 'min_pattern_length', 3)
+" let g:neocomplete#enable_at_startup = 1
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:neocomplete#manual_completion_start_length = 3
+" let g:neocomplete#auto_completion_start_length = 3
+" call neocomplete#custom#source('ultisnips', 'min_pattern_length', 3)
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
 " make braket matching highlight more comfortable
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
