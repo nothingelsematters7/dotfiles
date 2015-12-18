@@ -9,6 +9,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
+let mapleader = "-"
+let g:python_host_prog = '/usr/bin/python'
+
 call g:plug#begin('~/.vim/plugged')
 
 " Plug 'altercation/vim-colors-solarized'
@@ -101,7 +104,7 @@ set completeopt-=preview
 " call neocomplete#custom#source('ultisnips', 'min_pattern_length', 3)
 
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " make braket matching highlight more comfortable
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
