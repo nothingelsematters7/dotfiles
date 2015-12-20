@@ -10,14 +10,15 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 let mapleader = "-"
-let g:python_host_prog = '/usr/bin/python'
+let g:python_host_prog = '/usr/local/bin/python'
 
 call g:plug#begin('~/.vim/plugged')
 
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'fatih/molokai'
 " Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/deoplete.nvim'
+Plug 'Valloric/YouCompleteMe'
+" Plug 'Shougo/deoplete.nvim'
 Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'cespare/vim-toml', {'for' : 'toml'}
@@ -105,13 +106,12 @@ set completeopt-=preview
 
 " Use deoplete.
 " let g:deoplete#enable_at_startup = 1
+set completeopt+=noinsert
 
 " make braket matching highlight more comfortable
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
-let g:go_highlight_functions = 0
-let g:go_highlight_methods = 0
-let g:go_highlight_structs = 0
+let g:go_fmt_command = "goimports"
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
@@ -188,3 +188,49 @@ let g:airline#extensions#syntastic#enabled = 0
 " Press space to clear search highlighting
 nnoremap <silent> <Space> :noh<CR>
 nnoremap <NL> i<CR><ESC>
+
+" ==================== YouCompleteMe ====================
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_min_num_of_chars_for_completion = 1
+
+" Better Completion
+set complete=.,w,b,u,t
+set completeopt=longest,menuone
+
+" ==================== UltiSnips ====================
+
+function! g:UltiSnips_Complete()
+  call UltiSnips#ExpandSnippet()
+  if g:ulti_expand_res == 0
+    if pumvisible()
+      return "\<C-n>"
+    else
+      call UltiSnips#JumpForwards()
+      if g:ulti_jump_forwards_res == 0
+        return "\<TAB>"
+      endif
+    endif
+  endif
+  return ""
+endfunction
+
+function! g:UltiSnips_Reverse()
+  call UltiSnips#JumpBackwards()
+  if g:ulti_jump_backwards_res == 0
+    return "\<C-P>"
+  endif
+
+  return ""
+endfunction
+
+
+if !exists("g:UltiSnipsJumpForwardTrigger")
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+endif
+
+if !exists("g:UltiSnipsJumpBackwardTrigger")
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
+
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
