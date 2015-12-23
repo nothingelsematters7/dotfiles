@@ -35,7 +35,7 @@ Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'Raimondi/delimitMate'
+Plug 'Shougo/echodoc.vim'
 
 call g:plug#end()
 
@@ -63,7 +63,6 @@ set listchars=tab:>-,trail:·,nbsp:%
 set showbreak=>
 set history=50
 set ruler
-set noshowcmd
 set incsearch
 set wildmenu
 set wildmode=longest,list,full
@@ -71,6 +70,7 @@ set undofile
 set undodir=/tmp
 set directory=/tmp
 set hidden
+set noshowmode
 
 set splitright
 set splitbelow
@@ -142,15 +142,14 @@ let g:tagbar_type_go = {
 """""""""""""""""""""""
 "  Deoplete settings  "
 """""""""""""""""""""""
-set completeopt-=preview
-set completeopt+=noinsert
+set completeopt=menu,noinsert
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#syntax#min_keyword_length = 3
-let g:deoplete#manual_completion_start_length = 3
-let g:deoplete#auto_completion_start_length = 3
-"call deoplete#custom#source('ultisnips', 'min_pattern_length', 3)
-
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+" <CR>: close popup.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return pumvisible() ? deoplete#mappings#close_popup() : "\n"
+endfunction
 
 " make braket matching highlight more comfortable
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
@@ -207,4 +206,10 @@ let g:airline#extensions#syntastic#enabled = 0
 " Press space to clear search highlighting
 nnoremap <silent> <Space> :noh<CR>
 nnoremap <NL> i<CR><ESC>
+
+""""""""""""""""""""""
+"  EchoDoc settings  "
+""""""""""""""""""""""
+set noshowcmd
+let g:echodoc_enable_at_startup = 1
 
