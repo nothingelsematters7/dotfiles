@@ -38,6 +38,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/echodoc.vim'
+Plug 'zchee/deoplete-go'
 
 call g:plug#end()
 
@@ -147,6 +148,8 @@ let g:tagbar_type_go = {
 """""""""""""""""""""""
 set completeopt=menu,noinsert
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_completion_start_length = 4
+let g:deoplete#sources#go = 'vim-go'
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
 " <CR>: close popup.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
