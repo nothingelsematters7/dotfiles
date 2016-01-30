@@ -205,7 +205,7 @@ nmap <F8> :TagbarToggle<CR>
 """"""""""""""""""""""
 "  Airline settings  "
 """"""""""""""""""""""
-let g:airline_theme="dark"
+let g:airline_theme="gruvbox"
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
