@@ -1,5 +1,5 @@
 export PATH=$PATH:~/Library/Python/2.7/bin/
-source ~/Library/Python/2.7/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -52,7 +52,7 @@ plugins=(git)
 
 # User configuration
 
-export GOPATH=$HOME/go
+export GOPATH=$HOME/Projects/Mine/gowork/
 export PATH=$GOPATH/bin:/usr/local/sbin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 

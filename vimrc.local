@@ -11,7 +11,7 @@ endif
 
 let mapleader = ","
 let maplocalleader = "-"
-let g:python_host_prog = '/usr/bin/python'
+let g:python_host_prog = '/usr/local/bin/python'
 
 call g:plug#begin('~/.vim/plugged')
 
