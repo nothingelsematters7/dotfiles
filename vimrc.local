@@ -31,7 +31,6 @@ Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
 "Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
@@ -39,6 +38,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/echodoc.vim'
 Plug 'zchee/deoplete-go'
+Plug 'chase/vim-ansible-yaml'
 
 call g:plug#end()
 
@@ -148,9 +148,10 @@ let g:tagbar_type_go = {
 """""""""""""""""""""""
 set completeopt=menu,noinsert
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_completion_start_length = 4
+let g:deoplete#enable_ignore_case = 0
+let g:deoplete#auto_completion_start_length = 3
 let g:deoplete#sources#go = 'vim-go'
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "<Tab>"
 " <CR>: close popup.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
@@ -177,7 +178,7 @@ noremap <Right> <NOP>
 """"""""""""""""""""""""
 "  UltiSnips settings  "
 """"""""""""""""""""""""
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-k>"
 let g:UltiSnipsListSnippets="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -251,3 +252,12 @@ nnoremap <silent> <localleader>pp :cwindow<CR>:cp<CR>
 if has('nvim')
 	nmap <BS> <C-W>h
 endif
+
+"""""""""""""""""""""
+"  Pymode settings  "
+"""""""""""""""""""""
+
+let g:pymode_rope_goto_definition_bind = 'gd'
+let g:pymode_rope_goto_definition_cmd = 'e'
+let g:pymode_rope_completion = 0
+let g:pymode_rope_organize_imports_bind = 'goi'
