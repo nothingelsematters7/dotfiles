@@ -52,8 +52,9 @@ plugins=(git gitfast)
 
 # User configuration
 
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export GOPATH=/Users/a_menkov/Work/psago
+export GO15VENDOREXPERIMENT=1
+export PATH=/Users/a_menkov/go/bin:/usr/local/sbin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -63,9 +64,9 @@ export LANG=en_US.UTF-8
 
  #Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-	export EDITOR='nvim'
+	export EDITOR='vim'
 else
-	export EDITOR='nvim'
+	export EDITOR='vim'
 fi
 
 export CDPATH=.:$GOPATH/src/github.com
@@ -86,10 +87,12 @@ export CDPATH=.:$GOPATH/src/github.com
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 alias c="cd ~/Work"
-alias cc="cd $GOPATH/src/stash.wargaming.net/scm/wgpsp/psago.git"
+alias cc="cd ~/Work/psago"
 
-alias vim='nvim'
-alias vi='nvim'
+#alias vim='nvim'
+#alias vi='nvim'
 alias tigs="tig status"
 alias -s go="go run"
 alias todo="vim ~/todo.md"
+unalias gb
+alias vimrc="vim ~/dotfiles/vimrc.local"

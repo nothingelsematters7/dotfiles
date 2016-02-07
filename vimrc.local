@@ -1,22 +1,8 @@
-if &compatible
-  set nocompatible
-end
+call plug#begin('~/.vim/plugged')
 
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &&
-		\ mkdir -p ~/.config && ln -s ~/.vim ~/.config/nvim && ln -s ~/.vimrc ~/.config/nvim/init.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
-
-let mapleader = ","
-let maplocalleader = "-"
-let g:python_host_prog = '/usr/bin/python'
-
-call g:plug#begin('~/.vim/plugged')
-
-Plug 'Shougo/deoplete.nvim'
-Plug 'SirVer/ultisnips'
+Plug 'Raimondi/delimitMate'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'bling/vim-airline'
 Plug 'cespare/vim-toml', {'for' : 'toml'}
 Plug 'ctrlpvim/ctrlp.vim'
@@ -31,21 +17,65 @@ Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
-"Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/echodoc.vim'
-Plug 'zchee/deoplete-go'
 Plug 'chase/vim-ansible-yaml'
+Plug 'Shougo/vimproc'
+Plug 'davidhalter/jedi-vim'
 
-call g:plug#end()
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'zchee/deoplete-go', { 'do': 'make'}
+else
+  Plug 'Shougo/neocomplete.vim'
+endif
 
-filetype plugin indent on
-set background=dark
-syntax enable
-colorscheme gruvbox
+call plug#end()
+
+if !has('nvim')
+  set nocompatible
+  filetype off
+  filetype plugin indent on
+
+  set ttyfast
+  set ttymouse=xterm2
+  set ttyscroll=3
+
+  set laststatus=2
+  set encoding=utf-8              " Set default encoding to UTF-8
+  set autoread                    " Automatically reread changed files without asking me anything
+  set autoindent                  
+  set backspace=indent,eol,start  " Makes backspace key more powerful.
+  set incsearch                   " Shows the match while typing
+  set hlsearch                    " Highlight found searches
+endif
+
+set noerrorbells             " No beeps
+set number                   " Show line numbers
+set showcmd                  " Show me what I'm typing
+set showmode                 " Show current mode.
+set noswapfile               " Don't use swapfile
+set nobackup                 " Don't create annoying backup files
+set splitright               " Split vertical windows right to the current windows
+set splitbelow               " Split horizontal windows below to the current windows
+set autowrite                " Automatically save before :next, :make etc.
+set hidden
+set fileformats=unix,dos,mac " Prefer Unix over Windows over OS 9 formats
+set noshowmatch              " Do not show matching brackets by flickering
+set nocursorcolumn
+set noshowmode               " We show the mode with airline or lightline
+set ignorecase               " Search case insensitive...
+set smartcase                " ... but not it begins with upper case 
+set nocursorcolumn           " speed up syntax highlighting
+set nocursorline
+
+set lazyredraw          " Wait to redraw
+syntax sync minlines=256
+set synmaxcol=300
+set re=1
 
 set encoding=utf-8
 set fillchars+=stl:\ ,stlnc:\
@@ -59,7 +89,6 @@ set relativenumber
 set cursorline
 set ts=4
 set sw=4
-set ignorecase smartcase
 
 set nobackup
 set listchars=tab:>-,trail:·,nbsp:%
@@ -83,6 +112,22 @@ set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
 "http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
 set clipboard^=unnamed
 set clipboard^=unnamedplus
+
+if has('!nvim')
+  syntax enable
+endif
+
+set background=dark
+colorscheme gruvbox
+
+autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.vim setlocal noet ts=2 sw=2 sts=2
+au BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
+au BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
+
+let mapleader = ","
+let maplocalleader = "-"
+let g:python_host_prog = '/usr/bin/python'
 
 
 """""""""""""""""""""
@@ -110,10 +155,19 @@ if !exists("g:go_golint_bin")
     let g:go_golint_bin = "golint"
 endif
 
-let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
-let g:go_disable_autoinstall = 1
 let g:go_fmt_fail_silently = 0
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_term_enabled = 1
+let g:go_snippet_engine = "neosnippet"
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_extra_types = 0
+let g:go_highlight_operators = 0
+let g:go_highlight_build_constraints = 1
+let g:go_bin_path = "/Users/a_menkov/go/bin"
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
@@ -143,31 +197,35 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 	\ }
 
+" ==================== delimitMate ====================
+let g:delimitMate_expand_cr = 1		
+let g:delimitMate_expand_space = 1		
+let g:delimitMate_smart_quotes = 1		
+let g:delimitMate_expand_inside_quotes = 0		
+let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'		
+
 """""""""""""""""""""""
-"  Deoplete settings  "
+"  Neocomplete settings  "
 """""""""""""""""""""""
 set completeopt=menu,noinsert
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 0
-let g:deoplete#auto_completion_start_length = 3
-let g:deoplete#sources#go = 'vim-go'
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "<Tab>"
-" <CR>: close popup.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return pumvisible() ? deoplete#mappings#close_popup() : "\n"
-endfunction
+
+autocmd FileType python setlocal omnifunc=jedi#completions
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " make braket matching highlight more comfortable
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
-
 set laststatus=2
 
 nmap <Leader>t :NERDTree<CR>
-nmap <Leader>c :close<CR>
 
-"nmap <Leader>w :set wrap!<cr>
 nmap <Leader>w :w<cr>
 
 noremap <Up> <NOP>
@@ -175,33 +233,13 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-""""""""""""""""""""""""
-"  UltiSnips settings  "
-""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger="<c-k>"
-let g:UltiSnipsListSnippets="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-
-""""""""""""""""""""""""
-"  Syntastic settings  "
-""""""""""""""""""""""""
-"let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
-
-"""""""""""""""""""""
-"  Pymode settings  "
-"""""""""""""""""""""
-let g:pymode_folding = 0
-let g:pymode_syntax_all = 1
-
 """""""""""""""""""""
 "  Tagbar settings  "
 """""""""""""""""""""
-let g:tagbar_compact = 1
 nmap <F8> :TagbarToggle<CR>
+let g:tagbar_compact = 1
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
 
 """"""""""""""""""""""
 "  Airline settings  "
@@ -257,7 +295,100 @@ endif
 "  Pymode settings  "
 """""""""""""""""""""
 
+let g:pymode_folding = 0
+let g:pymode_syntax_all = 0
 let g:pymode_rope_goto_definition_bind = 'gd'
 let g:pymode_rope_goto_definition_cmd = 'e'
-let g:pymode_rope_completion = 0
 let g:pymode_rope_organize_imports_bind = 'goi'
+let g:pymode_rope_completion = 0
+let g:pymode_completion_provider = 'jedi'
+let g:pymode_lint_on_write = 0
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'pylint', 'pep257']
+let g:pymode_lint_ignore = 'C0111'
+let g:pymode_lint_sort = ['E', 'C', 'W', 'R', 'I', 'F', 'D']
+let g:pymode_options_max_line_length = 99
+
+" ==================== completion and snippet =========================
+set pumheight=10 
+" I use deoplete for Neovim and neocomplete for Vim.
+if has('nvim')
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#ignore_sources = {}
+  let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
+  let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+
+  " Use partial fuzzy matches like YouCompleteMe
+  call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+else
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+	if !exists('g:neocomplete#sources')
+	  let g:neocomplete#sources = {}
+	endif
+	let g:neocomplete#sources._ = ['buffer', 'member', 'tag', 'file', 'dictionary']
+	let g:neocomplete#sources.go = ['omni', 'neosnippet']
+	let g:neocomplete#sources.python = ['omni', 'buffer']
+
+  " disable sorting
+	call neocomplete#custom#source('_', 'sorters', [])
+endif
+
+" I want to use my tab more smarter. If we are inside a completion menu jump
+" to the next item. Otherwise check if there is any snippet to expand, if yes
+" expand it. Also if inside a snippet and we need to jump tab jumps. If none
+" of the above matches we just call our usual 'tab'.
+function! s:tab_complete()
+  if pumvisible()
+    return "\<c-n>"
+  endif
+
+  if neosnippet#expandable_or_jumpable() 
+    return "\<Plug>(neosnippet_expand_or_jump)"
+  endif
+
+  return "\<tab>"
+endfunction
+imap <silent><expr><TAB> <SID>tab_complete()
+
+smap <expr><tab> neosnippet#expandable_or_jumpable() ? 
+      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+imap <silent><expr> <CR> pumvisible() ? "\<C-y>" : '<Plug>delimitMateCR'
+
+autocmd InsertLeave * NeoSnippetClearMarkers
+
+" Use neocomplete.
+"let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+"let g:neocomplete#enable_smart_case = 0
+"let g:neocomplete#enable_ignore_case = 0
+" Set minimum syntax keyword length.
+"let g:neocomplete#sources#syntax#min_keyword_length = 3
+" <TAB>: completion.
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+"endfunction
+
+" Plugin key-mappings.
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+
+ " vim:ts=2:sw=2:et
