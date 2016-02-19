@@ -52,9 +52,10 @@ plugins=(git gitfast)
 
 # User configuration
 
-export GOPATH=$HOME/Projects/Mine/gowork/
+export GOPATH=/Users/dev_il/Projects/Work/aggregators/go/
 export GO15VENDOREXPERIMENT=1
-export PATH=$GOPATH/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export GOBIN=/Users/dev_il/go/bin
+export PATH=$GOBIN:/usr/local/sbin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
