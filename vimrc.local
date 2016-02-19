@@ -3,32 +3,38 @@ call plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'bling/vim-airline'
+"Plug 'bling/vim-airline'
 Plug 'cespare/vim-toml', {'for' : 'toml'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elzr/vim-json', {'for' : 'json'}
 Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'honza/vim-snippets'
+"Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
+"Plug 'honza/vim-snippets'
 Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
-Plug 'klen/python-mode', {'for': 'python'}
+"Plug 'klen/python-mode', {'for': 'python'}
 Plug 'majutsushi/tagbar'
+" colorshemes
 Plug 'morhetz/gruvbox'
+"Plug 'blueshirts/darcula'
+"Plug 'fatih/molokai'
+
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'terryma/vim-multiple-cursors'
+"Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
+"Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/echodoc.vim'
-Plug 'chase/vim-ansible-yaml'
+"Plug 'chase/vim-ansible-yaml'
 Plug 'Shougo/vimproc'
 Plug 'davidhalter/jedi-vim'
+Plug 'itchyny/lightline.vim'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
   Plug 'zchee/deoplete-go', { 'do': 'make'}
+  Plug 'zchee/deoplete-jedi', {'for': 'python'}
 else
   Plug 'Shougo/neocomplete.vim'
 endif
@@ -53,6 +59,7 @@ if !has('nvim')
   set hlsearch                    " Highlight found searches
 endif
 
+set visualbell t_vb=
 set noerrorbells             " No beeps
 set number                   " Show line numbers
 set showcmd                  " Show me what I'm typing
@@ -65,60 +72,60 @@ set autowrite                " Automatically save before :next, :make etc.
 set hidden
 set fileformats=unix,dos,mac " Prefer Unix over Windows over OS 9 formats
 set noshowmatch              " Do not show matching brackets by flickering
-set nocursorcolumn
 set noshowmode               " We show the mode with airline or lightline
 set ignorecase               " Search case insensitive...
 set smartcase                " ... but not it begins with upper case 
 set nocursorcolumn           " speed up syntax highlighting
 set nocursorline
+set relativenumber
 
 set lazyredraw          " Wait to redraw
 syntax sync minlines=256
 set synmaxcol=300
 set re=1
 
-set encoding=utf-8
-set fillchars+=stl:\ ,stlnc:\
-set termencoding=utf-8
-set foldmethod=syntax
-set foldlevelstart=99
+"set encoding=utf-8
+"set fillchars+=stl:\ ,stlnc:\
+"set termencoding=utf-8
+"set foldmethod=syntax
+"set foldlevelstart=99
 
-set modelines=3
-set number
-set relativenumber
-set cursorline
-set ts=4
-set sw=4
+"set modelines=3
+"set cursorline
 
-set nobackup
-set listchars=tab:>-,trail:·,nbsp:%
-set showbreak=>
 set history=50
-set ruler
-set incsearch
-set wildmenu
-set wildmode=longest,list,full
+"set ruler
+"set wildmenu
+"set wildmode=longest,list,full
 set undofile
 set undodir=/tmp
 set directory=/tmp
-set hidden
-set noshowmode
-
-set splitright
-set splitbelow
 
 set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
+" Change cursor shape between insert and normal mode in iTerm2.app
+"if $TERM_PROGRAM =~ "iTerm"
+	"let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+	"let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+"endif
 
 "http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
 set clipboard^=unnamed
 set clipboard^=unnamedplus
 
-if has('!nvim')
-  syntax enable
-endif
+if has("gui_macvim")
+	let macvim_skip_colorscheme=1
+  set background=dark
+  colorscheme gruvbox
+  "highlight SignColumn guibg=#272822
+else
+  if has('!nvim')
+    syntax enable
+    set t_Co=256
+  endif
 
-set background=dark
-colorscheme gruvbox
+  set background=dark
+  colorscheme gruvbox
+endif
 
 autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.vim setlocal noet ts=2 sw=2 sts=2
@@ -209,7 +216,7 @@ let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
 """""""""""""""""""""""
 set completeopt=menu,noinsert
 
-autocmd FileType python setlocal omnifunc=jedi#completions
+"autocmd FileType python setlocal omnifunc=jedi#completions
 
 " SuperTab like snippets behavior.
 "imap <expr><TAB>
@@ -220,7 +227,7 @@ autocmd FileType python setlocal omnifunc=jedi#completions
 "\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " make braket matching highlight more comfortable
-hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+"hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
 set laststatus=2
 
@@ -289,6 +296,7 @@ nnoremap <silent> <localleader>pp :cwindow<CR>:cp<CR>
 
 if has('nvim')
 	nmap <BS> <C-W>h
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
 
 """""""""""""""""""""
@@ -314,25 +322,39 @@ set pumheight=10
 if has('nvim')
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#ignore_sources = {}
+  "let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
   let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
   let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
 
   " Use partial fuzzy matches like YouCompleteMe
-  call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+  "call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+
+  "autocmd FileType python setlocal omnifunc=jedi#completions
+  "let g:jedi#completions_enabled = 0
+  "let g:jedi#auto_vim_configuration = 0
+  "let g:jedi#smart_auto_mappings = 0
+  "let g:jedi#show_call_signatures = 0 
+  "let g:echodoc_enable_at_startup = 1
 else
-  let g:neocomplete#enable_at_startup = 1
+  "let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
   let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-	if !exists('g:neocomplete#sources')
-	  let g:neocomplete#sources = {}
-	endif
-	let g:neocomplete#sources._ = ['buffer', 'member', 'tag', 'file', 'dictionary']
-	let g:neocomplete#sources.go = ['omni', 'neosnippet']
-	let g:neocomplete#sources.python = ['omni', 'buffer']
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_omni_input_patterns.go = '\h\w*\|[^.[:digit:] *\t]\.\w*'
+  let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 
-  " disable sorting
-	call neocomplete#custom#source('_', 'sorters', [])
+  if !exists('g:neocomplete#sources')
+    let g:neocomplete#sources = {}
+  endif
+  let g:neocomplete#sources._ = ['buffer', 'member', 'tag', 'file', 'dictionary']
+  let g:neocomplete#sources.go = ['omni']
+  let g:neocomplete#sources.python = ['omni']
+
+  "" disable sorting
+  call neocomplete#custom#source('_', 'sorters', [])
 endif
 
 " I want to use my tab more smarter. If we are inside a completion menu jump
@@ -382,13 +404,5 @@ autocmd InsertLeave * NeoSnippetClearMarkers
 "imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 "smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 "xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-        let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
  " vim:ts=2:sw=2:et
