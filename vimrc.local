@@ -17,9 +17,10 @@ Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
 "Plug 'klen/python-mode', {'for': 'python'}
 Plug 'majutsushi/tagbar'
 " colorshemes
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 "Plug 'blueshirts/darcula'
 "Plug 'fatih/molokai'
+Plug 'vim-scripts/dbext.vim'
 
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
@@ -32,6 +33,8 @@ Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/vimproc'
 Plug 'davidhalter/jedi-vim'
 Plug 'itchyny/lightline.vim'
+Plug 'tomasr/molokai'
+Plug 'airblade/vim-gitgutter'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
@@ -80,6 +83,7 @@ set smartcase                " ... but not it begins with upper case
 set nocursorcolumn           " speed up syntax highlighting
 set nocursorline
 set relativenumber
+set numberwidth=5
 
 set lazyredraw          " Wait to redraw
 syntax sync minlines=256
@@ -111,13 +115,16 @@ set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
 "endif
 
 "http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
-set clipboard^=unnamed
-set clipboard^=unnamedplus
+"set clipboard^=unnamed
+"set clipboard^=unnamedplus
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
 
 if has("gui_macvim")
 	let macvim_skip_colorscheme=1
-  set background=dark
-  colorscheme gruvbox
+  "set background=dark
+  "colorscheme gruvbox
   "highlight SignColumn guibg=#272822
 else
   if has('!nvim')
@@ -125,8 +132,10 @@ else
     set t_Co=256
   endif
 
-  set background=dark
-  colorscheme gruvbox
+  "set background=dark
+  "colorscheme gruvbox
+  let g:rehash256=1
+  colorscheme molokai
 endif
 
 autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
@@ -275,6 +284,10 @@ let g:echodoc_enable_at_startup = 1
 """"""""""""""""
 "  Navigation  "
 """"""""""""""""
+noremap <A-h> <C-w>h
+noremap <A-j> <C-w>j
+noremap <A-k> <C-w>k
+noremap <A-l> <C-w>l
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
@@ -316,6 +329,11 @@ let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'pylint', 'pep257']
 let g:pymode_lint_ignore = 'C0111'
 let g:pymode_lint_sort = ['E', 'C', 'W', 'R', 'I', 'F', 'D']
 let g:pymode_options_max_line_length = 99
+
+ " statusline config
+let g:lightline = {
+  \ 'colorscheme': 'wombat',
+  \ }
 
 " ==================== completion and snippet =========================
 set pumheight=10 
