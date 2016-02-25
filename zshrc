@@ -61,6 +61,7 @@ export PATH=$GOBIN:/usr/local/sbin:/usr/local/bin:$PATH
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
+export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
  #Preferred editor for local and remote sessions
@@ -69,8 +70,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
 	export EDITOR='vim'
 fi
-
-export CDPATH=.:$GOPATH/src/github.com
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -87,10 +86,9 @@ export CDPATH=.:$GOPATH/src/github.com
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-alias c="cd ~/Work"
-alias cc="cd ~/Work/psago"
+alias cc="cd ~/Work"
 
-#alias vim='nvim'
+alias vim='nvim'
 #alias vi='nvim'
 alias tigs="tig status"
 alias -s go="go run"
