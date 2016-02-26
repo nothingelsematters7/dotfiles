@@ -156,17 +156,38 @@ autocmd BufReadPost *
 			\ endif
 au BufNewFile,BufRead *.conf setf toml
 
-au FileType go nmap gr <Plug>(go-run)
-au FileType go nmap gb <Plug>(go-build)
+"au FileType go nmap gr <Plug>(go-run)
+"au FileType go nmap gb <Plug>(go-build)
 "au FileType go nmap gt <Plug>(go-test)
-au FileType go nmap gi <Plug>(go-info)
-au FileType go nmap gn <Plug>(go-doc-browser)
-au FileType go nmap gh <Plug>(go-doc)
-au FileType go nmap gv <Plug>(go-doc-vertical)
-au FileType go nmap gdd <Plug>(go-def)
-au FileType go nmap gds <Plug>(go-def-split)
-au FileType go nmap gdv <Plug>(go-def-vertical)
-nmap <Leader>i :GoImports<CR>
+"au FileType go nmap gi <Plug>(go-info)
+"au FileType go nmap gn <Plug>(go-doc-browser)
+"au FileType go nmap gh <Plug>(go-doc)
+"au FileType go nmap gv <Plug>(go-doc-vertical)
+"au FileType go nmap gdd <Plug>(go-def)
+"au FileType go nmap gds <Plug>(go-def-split)
+"au FileType go nmap gdv <Plug>(go-def-vertical)
+"nmap <Leader>i :GoImports<CR>
+
+" vim-python
+augroup vimrc-python
+    autocmd!
+    autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
+        \ formatoptions+=croq softtabstop=4 smartindent
+        \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+augroup END
+
+augroup FileType go
+    autocmd!
+    autocmd FileType go nmap gd <Plug>(go-def)
+    autocmd FileType go nmap <Leader>dd <Plug>(go-def-vertical)
+    autocmd FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
+    autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+    autocmd FileType go nmap <leader>gr <Plug>(go-run)
+    autocmd FileType go nmap <leader>rb <Plug>(go-build)
+    "autocmd FileType go nmap <leader>ii <Plug>(go-install)
+    autocmd FileType go nmap <leader>gt <Plug>(go-test)
+    autocmd FileType go nmap <Leader>ii :GoImport<Space>
+  augroup END
 
 if !exists("g:go_golint_bin")
     let g:go_golint_bin = "golint"
@@ -421,27 +442,16 @@ imap <silent><expr> <CR> pumvisible() ? "\<C-y>" : '<Plug>delimitMateCR'
 
 autocmd InsertLeave * NeoSnippetClearMarkers
 
-" Use neocomplete.
-"let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-"let g:neocomplete#enable_smart_case = 0
-"let g:neocomplete#enable_ignore_case = 0
-" Set minimum syntax keyword length.
-"let g:neocomplete#sources#syntax#min_keyword_length = 3
-" <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-"endfunction
+"" Vmap for maintain Visual Mode after shifting > and <
+vmap < <gv
+vmap > >gv
 
-" Plugin key-mappings.
-"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"xmap <C-k>     <Plug>(neosnippet_expand_target)
+"" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" tab navigations
+nmap <tab> gt
+nmap <s-tab> gT
 
  " vim:ts=2:sw=2:et
