@@ -1,0 +1,42 @@
+[user]
+	name = Andrey Menkov
+	email = a_menkov@wargaming.net
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[alias]
+	ci = commit
+	fci = commit --amend -m
+	st = status -sb
+	co = checkout
+	diff = diff --word-diff
+	br = branch
+	sb = show-branch
+	mt = mergetool
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	gg = grep --break --heading -n
+
+[branch]
+	autosetupmerge = true
+[push]
+	default = nothing
+[url "git@github.com:"]
+	insteadOf = gh:
+[url "git@bitbucket.org:"]
+	insteadOf = bb:
+[url "git@git.assembla.com:"]
+	insteadOf = as:
+[diff]
+	algorithm = patience
+	tool = vimdiff
+[core]
+	excludesfile = /Users/a_menkov/.gitignore_global
+	editor = nvim
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false

@@ -95,3 +95,5 @@ alias -s go="go run"
 alias todo="vim ~/todo.md"
 unalias gb
 alias vimrc="vim ~/dotfiles/vimrc.local"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
