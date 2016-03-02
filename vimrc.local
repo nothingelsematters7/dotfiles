@@ -171,7 +171,7 @@ au BufNewFile,BufRead *.conf setf toml
 " vim-python
 augroup vimrc-python
     autocmd!
-    autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
+    autocmd FileType python setlocal colorcolumn=79
         \ formatoptions+=croq softtabstop=4 smartindent
         \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
@@ -355,6 +355,10 @@ let g:pymode_options_max_line_length = 99
 let g:lightline = {
   \ 'colorscheme': 'wombat',
   \ }
+
+let g:lightline.active = {
+    \ 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'relativepath', 'modified' ] ]
+    \ }
 
 " ==================== completion and snippet =========================
 set pumheight=10 

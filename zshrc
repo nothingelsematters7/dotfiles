@@ -68,7 +68,7 @@ export LANG=en_US.UTF-8
 if [[ -n $SSH_CONNECTION ]]; then
 	export EDITOR='vim'
 else
-	export EDITOR='vim'
+	export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -95,3 +95,5 @@ alias -s go="go run"
 alias todo="vim ~/todo.md"
 unalias gb
 alias vimrc="vim ~/dotfiles/vimrc.local"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
