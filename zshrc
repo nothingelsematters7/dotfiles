@@ -35,7 +35,7 @@ DISABLE_AUTO_UPDATE="true"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -49,25 +49,28 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git gitfast)
 
 # User configuration
 
-export GOPATH=$HOME/Projects/Mine/gowork
-export PATH=$GOPATH/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export GOPATH=/Users/a_menkov/Work/psa/go/
+export GO15VENDOREXPERIMENT=1
+export GOBIN=/Users/a_menkov/go/bin
+export PATH=$GOBIN:/usr/local/sbin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
+export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+ #Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+	export EDITOR='vim'
+else
+	export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -83,3 +86,15 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+alias cc="cd ~/Work"
+
+alias vim='nvim'
+#alias vi='nvim'
+alias tigs="tig status"
+alias -s go="go run"
+alias todo="vim ~/todo.md"
+unalias gb
+alias vimrc="vim ~/dotfiles/vimrc.local"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
