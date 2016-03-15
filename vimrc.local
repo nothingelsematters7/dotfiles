@@ -458,4 +458,7 @@ vnoremap K :m '<-2<CR>gv=gv
 nmap <tab> gt
 nmap <s-tab> gT
 
+" consistent mapping with C and D
+nnoremap Y y$
+
  " vim:ts=2:sw=2:et
