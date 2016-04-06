@@ -8,6 +8,7 @@
 .diff-view.text-view .line-number,
 .diff-view.text-view .line-number-marker,
 code, pre {
+	font-family: Consolas, monospace;
 	font-size: 15px !important;            
 }
 
