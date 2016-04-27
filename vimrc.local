@@ -14,7 +14,7 @@ Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
 "Plug 'klen/python-mode', {'for': 'python'}
 Plug 'majutsushi/tagbar'
 " colorshemes
-"Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 "Plug 'blueshirts/darcula'
 "Plug 'fatih/molokai'
 Plug 'vim-scripts/dbext.vim'
@@ -32,6 +32,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
+Plug 'fxn/vim-monochrome'
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'rhysd/vim-go-impl'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
@@ -130,10 +133,12 @@ else
     set t_Co=256
   endif
 
-  "set background=dark
-  "colorscheme gruvbox
-  let g:rehash256=1
-  colorscheme molokai
+  set background=dark
+  colorscheme gruvbox
+  "let g:rehash256=1
+  "colorscheme molokai
+  "let g:solarized_termcolors=256
+  "colorscheme solarized
 endif
 
 autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
