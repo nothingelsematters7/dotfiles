@@ -29,6 +29,7 @@ Plug 'Shougo/echodoc.vim'
 "Plug 'chase/vim-ansible-yaml'
 Plug 'davidhalter/jedi-vim'
 Plug 'itchyny/lightline.vim'
+Plug 'divan/incognito'
 Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
@@ -139,6 +140,8 @@ else
   "colorscheme molokai
   "let g:solarized_termcolors=256
   "colorscheme solarized
+  "let g:rehash256=1
+  "colorscheme molokai
 endif
 
 autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
@@ -186,10 +189,12 @@ augroup FileType go
     autocmd FileType go nmap <Leader>dd <Plug>(go-def-vertical)
     autocmd FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
     autocmd FileType go nmap <Leader>gi <Plug>(go-info)
-    autocmd FileType go nmap <leader>gr <Plug>(go-run)
-    autocmd FileType go nmap <leader>rb <Plug>(go-build)
     "autocmd FileType go nmap <leader>ii <Plug>(go-install)
     autocmd FileType go nmap <leader>gt <Plug>(go-test)
+    autocmd FileType go nmap <leader>r <Plug>(go-run)
+    autocmd FileType go nmap <leader>b <Plug>(go-build)
+    autocmd FileType go nmap <leader>t <Plug>(go-test)
+    autocmd FileType go nmap <leader>c <Plug>(go-coverage)
     autocmd FileType go nmap <Leader>ii :GoImport<Space>
   augroup END
 
@@ -473,5 +478,30 @@ nmap <s-tab> gT
 
 " consistent mapping with C and D
 nnoremap Y y$
+
+" useful toogle movement from
+" http://ddrscott.github.io/blog/2016/vim-toggle-movement/
+function! ToggleMovement(firstOp, thenOp)
+  let pos = getpos('.')
+  execute "normal! " . a:firstOp
+  if pos == getpos('.')
+    execute "normal! " . a:thenOp
+  endif
+endfunction
+
+" The original carat 0 swap
+nnoremap <silent> 0 :call ToggleMovement('^', '0')<CR>
+
+" How about ; and ,
+nnoremap <silent> ; :call ToggleMovement(';', ',')<CR>
+nnoremap <silent> , :call ToggleMovement(',', ';')<CR>
+
+" How about H and L
+nnoremap <silent> H :call ToggleMovement('H', 'L')<CR>
+nnoremap <silent> L :call ToggleMovement('L', 'H')<CR>
+
+" How about G and gg
+nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
+nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
 
  " vim:ts=2:sw=2:et
