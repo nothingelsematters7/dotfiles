@@ -15,7 +15,9 @@ Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
 Plug 'majutsushi/tagbar'
 " colorshemes
 Plug 'morhetz/gruvbox'
-"Plug 'blueshirts/darcula'
+Plug 'chriskempson/base16-vim'
+Plug 'daviesjamie/vim-base16-lightline'
+Plug 'blueshirts/darcula'
 "Plug 'fatih/molokai'
 Plug 'vim-scripts/dbext.vim'
 
@@ -134,14 +136,25 @@ else
     set t_Co=256
   endif
 
-  set background=dark
-  colorscheme gruvbox
+  " Gruvbox
+  "set background=dark
+  "colorscheme gruvbox
+  "let g:gruvbox_contrast_dark="soft"
+  
+  " Molokai
+  "set background=dark
   "let g:rehash256=1
   "colorscheme molokai
+  
+  " Solarized
+  "set background=dark
   "let g:solarized_termcolors=256
   "colorscheme solarized
-  "let g:rehash256=1
-  "colorscheme molokai
+  
+  let base16colorspace=256
+  set background=dark
+  colorscheme base16-default
+
 endif
 
 autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
@@ -215,6 +228,7 @@ let g:go_highlight_extra_types = 0
 let g:go_highlight_operators = 0
 let g:go_highlight_build_constraints = 1
 let g:go_bin_path = "/Users/a_menkov/go/bin"
+let g:go_gocode_propose_builtins = 0
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
@@ -366,7 +380,7 @@ let g:pymode_options_max_line_length = 99
 
  " statusline config
 let g:lightline = {
-  \ 'colorscheme': 'wombat',
+  \ 'colorscheme': 'base16',
   \ }
 
 let g:lightline.active = {
@@ -501,7 +515,7 @@ nnoremap <silent> H :call ToggleMovement('H', 'L')<CR>
 nnoremap <silent> L :call ToggleMovement('L', 'H')<CR>
 
 " How about G and gg
-nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
-nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
+"nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
+"nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
 
  " vim:ts=2:sw=2:et
