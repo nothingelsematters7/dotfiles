@@ -1,4 +1,4 @@
-let g:python_host_prog = '/usr/local/bin/python'
+let g:python_host_prog = $PYTHON_HOST_PROG
 
 call plug#begin('~/.vim/plugged')
 
@@ -229,7 +229,7 @@ let g:go_highlight_trailing_whitespace_error = 0
 let g:go_highlight_extra_types = 0
 let g:go_highlight_operators = 0
 let g:go_highlight_build_constraints = 1
-let g:go_bin_path = "/Users/a_menkov/go/bin"
+let g:go_bin_path = $GOBIN
 let g:go_gocode_propose_builtins = 0
 
 let g:tagbar_type_go = {

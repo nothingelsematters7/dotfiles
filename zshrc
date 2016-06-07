@@ -97,4 +97,6 @@ alias todo="vim ~/todo.md"
 unalias gb
 alias vimrc="vim ~/dotfiles/vimrc.local"
 
+export PYTHON_HOST_PROG="/usr/local/bin/python"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
