@@ -1,0 +1,14 @@
+.blob-line-code,
+.diff-line-code,
+.blob-line-num,
+.blob-code,
+.blob-code-inner,
+.blob-num,
+.content-view .CodeMirror pre,
+.diff-view.text-view .line-number,
+.diff-view.text-view .line-number-marker,
+code, pre {
+	font-family: Inconsolata, monospace;
+	font-size: 17px !important;
+}
+
