@@ -114,8 +114,8 @@ set directory=/tmp
 set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
 " Change cursor shape between insert and normal mode in iTerm2.app
 "if $TERM_PROGRAM =~ "iTerm"
-	"let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-	"let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+"let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+"let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
 "endif
 
 "http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
@@ -126,7 +126,7 @@ if has('unnamedplus')
 endif
 
 if has("gui_macvim")
-	let macvim_skip_colorscheme=1
+  let macvim_skip_colorscheme=1
   "set background=dark
   "colorscheme gruvbox
   "highlight SignColumn guibg=#272822
@@ -140,20 +140,20 @@ else
   "set background=dark
   "colorscheme gruvbox
   "let g:gruvbox_contrast_dark="soft"
-  
+
   " Molokai
-  "set background=dark
-  "let g:rehash256=1
-  "colorscheme molokai
-  
+  set background=dark
+  let g:rehash256=1
+  colorscheme molokai
+
   " Solarized
   "set background=dark
   "let g:solarized_termcolors=256
   "colorscheme solarized
-  
-  let base16colorspace=256
-  set background=dark
-  colorscheme base16-default
+
+  "let base16colorspace=256
+  "set background=dark
+  "colorscheme base16-default
 
 endif
 
@@ -171,9 +171,9 @@ let g:python_host_prog = '/usr/bin/python'
 "  Vim-go settings  "
 """""""""""""""""""""
 autocmd BufReadPost *
-			\ if line("'\"") > 0 && line("'\"") <= line("$") |
-			\   exe "normal g`\"" |
-			\ endif
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endif
 au BufNewFile,BufRead *.conf setf toml
 
 "au FileType go nmap gr <Plug>(go-run)
@@ -190,31 +190,32 @@ au BufNewFile,BufRead *.conf setf toml
 
 " vim-python
 augroup vimrc-python
-    autocmd!
-    autocmd FileType python setlocal colorcolumn=79
+  autocmd!
+  autocmd FileType python setlocal colorcolumn=79
         \ formatoptions+=croq softtabstop=4 smartindent
         \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
 
 augroup FileType go
-    autocmd!
-    autocmd FileType go nmap gd <Plug>(go-def)
-    autocmd FileType go nmap <Leader>dd <Plug>(go-def-vertical)
-    autocmd FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
-    autocmd FileType go nmap <Leader>gi <Plug>(go-info)
-    "autocmd FileType go nmap <leader>ii <Plug>(go-install)
-    autocmd FileType go nmap <leader>gt <Plug>(go-test)
-    autocmd FileType go nmap <leader>r <Plug>(go-run)
-    autocmd FileType go nmap <leader>b <Plug>(go-build)
-    autocmd FileType go nmap <leader>t <Plug>(go-test)
-    autocmd FileType go nmap <leader>c <Plug>(go-coverage)
-    autocmd FileType go nmap <Leader>ii :GoImport<Space>
-  augroup END
+  autocmd!
+  autocmd FileType go nmap gd <Plug>(go-def)
+  autocmd FileType go nmap <Leader>dd <Plug>(go-def-vertical)
+  autocmd FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
+  autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+  "autocmd FileType go nmap <leader>ii <Plug>(go-install)
+  autocmd FileType go nmap <leader>gt <Plug>(go-test)
+  autocmd FileType go nmap <leader>r <Plug>(go-run)
+  autocmd FileType go nmap <leader>b <Plug>(go-build)
+  autocmd FileType go nmap <leader>t <Plug>(go-test)
+  autocmd FileType go nmap <leader>c <Plug>(go-coverage)
+  autocmd FileType go nmap <Leader>ii :GoImport<Space>
+augroup END
 
 if !exists("g:go_golint_bin")
-    let g:go_golint_bin = "golint"
+  let g:go_golint_bin = "golint"
 endif
 
+let g:go_def_mode = 'godef'
 let g:go_fmt_autosave = 1
 let g:go_fmt_fail_silently = 0
 let g:go_fmt_command = "goimports"
@@ -231,32 +232,32 @@ let g:go_bin_path = "/Users/a_menkov/go/bin"
 let g:go_gocode_propose_builtins = 0
 
 let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-	\ }
+      \ 'ctagstype' : 'go',
+      \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+      \ ],
+      \ 'sro' : '.',
+      \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+      \ },
+      \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+      \ },
+      \ 'ctagsbin'  : 'gotags',
+      \ 'ctagsargs' : '-sort -silent'
+      \ }
 
 " ==================== delimitMate ====================
 let g:delimitMate_expand_cr = 1		
@@ -311,7 +312,7 @@ let g:tagbar_autofocus = 1
 """"""""""""""""""""""
 let g:airline_theme="gruvbox"
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
 let g:airline_symbols.linenr = '␤ '
 let g:airline_symbols.paste = 'ρ'
@@ -357,7 +358,7 @@ nnoremap <silent> <localleader>nn :cwindow<CR>:cn<CR>
 nnoremap <silent> <localleader>pp :cwindow<CR>:cp<CR>
 
 if has('nvim')
-	nmap <BS> <C-W>h
+  nmap <BS> <C-W>h
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
 
@@ -378,14 +379,14 @@ let g:pymode_lint_ignore = 'C0111'
 let g:pymode_lint_sort = ['E', 'C', 'W', 'R', 'I', 'F', 'D']
 let g:pymode_options_max_line_length = 99
 
- " statusline config
+" statusline config
 let g:lightline = {
-  \ 'colorscheme': 'base16',
-  \ }
+      \ 'colorscheme': 'wombat',
+      \ }
 
 let g:lightline.active = {
-    \ 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'relativepath', 'modified' ] ]
-    \ }
+      \ 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'relativepath', 'modified' ] ]
+      \ }
 
 " ==================== completion and snippet =========================
 set pumheight=10 
@@ -518,4 +519,4 @@ nnoremap <silent> L :call ToggleMovement('L', 'H')<CR>
 "nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
 "nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
 
- " vim:ts=2:sw=2:et
+" vim:ts=2:sw=2:et
