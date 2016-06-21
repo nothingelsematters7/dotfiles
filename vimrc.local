@@ -1,3 +1,9 @@
+" Installation instructions:
+"
+"   1. Install vim-plug: curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   2. :PlugInstall
+"
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'Raimondi/delimitMate'
@@ -29,20 +35,20 @@ Plug 'tpope/vim-fugitive'
 "Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/echodoc.vim'
 "Plug 'chase/vim-ansible-yaml'
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'divan/incognito'
 Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
-Plug 'fxn/vim-monochrome'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'rhysd/vim-go-impl'
+Plug 'avakhov/vim-yaml'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
   Plug 'zchee/deoplete-go', { 'do': 'make'}
-  Plug 'zchee/deoplete-jedi', {'for': 'python'}
+  "Plug 'zchee/deoplete-jedi', {'for': 'python'}
 else
   Plug 'Shougo/neocomplete.vim'
   Plug 'Shougo/vimproc' , { 'do': 'make'}
@@ -62,7 +68,7 @@ if !has('nvim')
   set laststatus=2
   set encoding=utf-8              " Set default encoding to UTF-8
   set autoread                    " Automatically reread changed files without asking me anything
-  set autoindent                  
+  set autoindent
   set backspace=indent,eol,start  " Makes backspace key more powerful.
   set incsearch                   " Shows the match while typing
   set hlsearch                    " Highlight found searches
@@ -83,7 +89,7 @@ set fileformats=unix,dos,mac " Prefer Unix over Windows over OS 9 formats
 set noshowmatch              " Do not show matching brackets by flickering
 set noshowmode               " We show the mode with airline or lightline
 set ignorecase               " Search case insensitive...
-set smartcase                " ... but not it begins with upper case 
+set smartcase                " ... but not it begins with upper case
 set nocursorcolumn           " speed up syntax highlighting
 set nocursorline
 set relativenumber
@@ -102,6 +108,8 @@ set re=1
 
 "set modelines=3
 "set cursorline
+set list                  " Show invisible characters
+set listchars=trail:⋅ "Set the characters for the invisibles
 
 set history=50
 "set ruler
@@ -139,7 +147,7 @@ else
   " Gruvbox
   "set background=dark
   "colorscheme gruvbox
-  "let g:gruvbox_contrast_dark="soft"
+  "let g:gruvbox_contrast_dark="hard"
 
   " Molokai
   set background=dark
@@ -147,7 +155,7 @@ else
   colorscheme molokai
 
   " Solarized
-  "set background=dark
+  "set background=light
   "let g:solarized_termcolors=256
   "colorscheme solarized
 
@@ -260,11 +268,11 @@ let g:tagbar_type_go = {
       \ }
 
 " ==================== delimitMate ====================
-let g:delimitMate_expand_cr = 1		
-let g:delimitMate_expand_space = 1		
-let g:delimitMate_smart_quotes = 1		
-let g:delimitMate_expand_inside_quotes = 0		
-let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'		
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_smart_quotes = 1
+let g:delimitMate_expand_inside_quotes = 0
+let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
 
 imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
 
@@ -389,7 +397,7 @@ let g:lightline.active = {
       \ }
 
 " ==================== completion and snippet =========================
-set pumheight=10 
+set pumheight=10
 " I use deoplete for Neovim and neocomplete for Vim.
 if has('nvim')
   let g:deoplete#enable_at_startup = 1
@@ -412,7 +420,7 @@ if has('nvim')
   "let g:jedi#completions_enabled = 0
   "let g:jedi#auto_vim_configuration = 0
   "let g:jedi#smart_auto_mappings = 0
-  "let g:jedi#show_call_signatures = 0 
+  "let g:jedi#show_call_signatures = 0
   "let g:echodoc_enable_at_startup = 1
 else
   "let g:neocomplete#enable_at_startup = 1
@@ -504,6 +512,7 @@ function! ToggleMovement(firstOp, thenOp)
   endif
 endfunction
 
+
 " The original carat 0 swap
 nnoremap <silent> 0 :call ToggleMovement('^', '0')<CR>
 
@@ -518,5 +527,40 @@ nnoremap <silent> L :call ToggleMovement('L', 'H')<CR>
 " How about G and gg
 "nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
 "nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
+
+"----------------------------------------------------------------------
+" Autocommands
+"----------------------------------------------------------------------
+" Clear whitespace at the end of lines automatically
+autocmd BufWritePre * :%s/\s\+$//e
+
+
+" Shortcut to yanking to the system clipboard
+map <leader>y "*y
+map <leader>p "*p
+
+" Make j/k visual down and up instead of whole lines. This makes word
+" wrapping a lot more pleasent.
+map j gj
+map k gk
+
+"----------------------------------------------------------------------
+" Key Mappings
+"----------------------------------------------------------------------
+" Remap a key sequence in insert mode to kick me out to normal
+" mode. This makes it so this key sequence can never be typed
+" again in insert mode, so it has to be unique.
+inoremap jj <esc>
+inoremap jJ <esc>
+inoremap Jj <esc>
+inoremap JJ <esc>
+inoremap jk <esc>
+inoremap jK <esc>
+inoremap Jk <esc>
+inoremap JK <esc>
+
+" Customize session options. Namely, I don't want to save hidden and
+" unloaded buffers or empty windows.
+set sessionoptions="curdir,folds,help,options,tabpages,winsize"
 
 " vim:ts=2:sw=2:et
