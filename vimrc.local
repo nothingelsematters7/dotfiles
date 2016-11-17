@@ -24,6 +24,8 @@ Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
 Plug 'daviesjamie/vim-base16-lightline'
 Plug 'blueshirts/darcula'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'joshdick/onedark.vim'
 "Plug 'fatih/molokai'
 Plug 'vim-scripts/dbext.vim'
 
@@ -35,7 +37,7 @@ Plug 'tpope/vim-fugitive'
 "Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/echodoc.vim'
 "Plug 'chase/vim-ansible-yaml'
-"Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi'
 Plug 'itchyny/lightline.vim'
 Plug 'divan/incognito'
 Plug 'tomasr/molokai'
@@ -44,11 +46,16 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'rhysd/vim-go-impl'
 Plug 'avakhov/vim-yaml'
+Plug 'vim-erlang/vim-erlang-omnicomplete'
+Plug 'vim-erlang/vim-erlang-runtime'
+Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
+Plug 'IN3D/vim-raml'
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'zchee/deoplete-go', { 'do': 'make'}
-  "Plug 'zchee/deoplete-jedi', {'for': 'python'}
+  Plug 'zchee/deoplete-jedi', {'for': 'python'}
+  "Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh', 'for': 'elixir' }
 else
   Plug 'Shougo/neocomplete.vim'
   Plug 'Shougo/vimproc' , { 'do': 'make'}
@@ -90,8 +97,6 @@ set noshowmatch              " Do not show matching brackets by flickering
 set noshowmode               " We show the mode with airline or lightline
 set ignorecase               " Search case insensitive...
 set smartcase                " ... but not it begins with upper case
-set nocursorcolumn           " speed up syntax highlighting
-set nocursorline
 set relativenumber
 set numberwidth=5
 
@@ -109,7 +114,7 @@ set re=1
 "set modelines=3
 "set cursorline
 set list                  " Show invisible characters
-set listchars=trail:⋅ "Set the characters for the invisibles
+set listchars=tab:›\ ,trail:⋅ "Set the characters for the invisibles
 
 set history=50
 "set ruler
@@ -149,7 +154,7 @@ else
   "colorscheme gruvbox
   "let g:gruvbox_contrast_dark="hard"
 
-  " Molokai
+   "Molokai
   set background=dark
   let g:rehash256=1
   colorscheme molokai
@@ -159,10 +164,7 @@ else
   "let g:solarized_termcolors=256
   "colorscheme solarized
 
-  "let base16colorspace=256
-  "set background=dark
-  "colorscheme base16-default
-
+  "colorscheme Tomorrow-Night
 endif
 
 autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
@@ -172,7 +174,7 @@ au BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
 
 let mapleader = ","
 let maplocalleader = "-"
-let g:python_host_prog = '/usr/bin/python'
+let g:python_host_prog = '/usr/local/bin/python'
 
 
 """""""""""""""""""""
@@ -207,6 +209,7 @@ augroup END
 augroup FileType go
   autocmd!
   autocmd FileType go nmap gd <Plug>(go-def)
+  autocmd FileType go nmap gvd <Plug>(go-def-vertical)
   autocmd FileType go nmap <Leader>dd <Plug>(go-def-vertical)
   autocmd FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
   autocmd FileType go nmap <Leader>gi <Plug>(go-info)
@@ -236,7 +239,7 @@ let g:go_highlight_trailing_whitespace_error = 0
 let g:go_highlight_extra_types = 0
 let g:go_highlight_operators = 0
 let g:go_highlight_build_constraints = 1
-let g:go_bin_path = "/Users/a_menkov/go/bin"
+"let g:go_bin_path = "/Users/a_menkov/go/bin"
 let g:go_gocode_propose_builtins = 0
 
 let g:tagbar_type_go = {
@@ -402,8 +405,12 @@ set pumheight=10
 if has('nvim')
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#ignore_sources = {}
-  "let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
   let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
+
+  "let g:deoplete#sources = {}
+  "let g:deoplete#sources._ = ['buffer']
+  "let g:deoplete#sources#elixir = ['buffer', 'tag']
+
   let g:deoplete#sources#go = ['ultisnips']
   let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
   let g:deoplete#sources#go#align_class = 1
@@ -562,5 +569,8 @@ inoremap JK <esc>
 " Customize session options. Namely, I don't want to save hidden and
 " unloaded buffers or empty windows.
 set sessionoptions="curdir,folds,help,options,tabpages,winsize"
+
+" Git commit set to 1st line
+au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
 " vim:ts=2:sw=2:et
