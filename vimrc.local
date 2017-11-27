@@ -26,7 +26,12 @@ Plug 'daviesjamie/vim-base16-lightline'
 Plug 'blueshirts/darcula'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'joshdick/onedark.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'trevordmiller/nova-vim'
 "Plug 'fatih/molokai'
+Plug 'fxn/vim-monochrome'
+Plug 'owickstrom/vim-colors-paramount'
+
 Plug 'vim-scripts/dbext.vim'
 
 Plug 'rking/ag.vim'
@@ -41,6 +46,7 @@ Plug 'davidhalter/jedi'
 Plug 'itchyny/lightline.vim'
 Plug 'divan/incognito'
 Plug 'tomasr/molokai'
+Plug 'AlessandroYorba/Sidonia'
 Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'Glench/Vim-Jinja2-Syntax'
@@ -50,6 +56,13 @@ Plug 'vim-erlang/vim-erlang-omnicomplete'
 Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
 Plug 'IN3D/vim-raml'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'slashmili/alchemist.vim'
+
+" PlantUML plugins
+Plug 'scrooloose/vim-slumlord'
+Plug 'aklt/plantuml-syntax'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -155,16 +168,24 @@ else
   "let g:gruvbox_contrast_dark="hard"
 
    "Molokai
-  set background=dark
-  let g:rehash256=1
-  colorscheme molokai
+  "set background=dark
+  "let g:rehash256=1
+  "colorscheme molokai
 
   " Solarized
-  "set background=light
+  "set background=dark
   "let g:solarized_termcolors=256
   "colorscheme solarized
 
-  "colorscheme Tomorrow-Night
+  colorscheme sidonia
+
+  "set background=light
+  "colorscheme PaperColor
+
+  "colorscheme nova
+  "colorscheme monochrome
+  "set background=dark
+  "colorscheme paramount
 endif
 
 autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
@@ -201,7 +222,7 @@ au BufNewFile,BufRead *.conf setf toml
 " vim-python
 augroup vimrc-python
   autocmd!
-  autocmd FileType python setlocal colorcolumn=79
+  autocmd FileType python setlocal colorcolumn=99
         \ formatoptions+=croq softtabstop=4 smartindent
         \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
